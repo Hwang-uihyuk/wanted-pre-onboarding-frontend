@@ -1,0 +1,49 @@
+import React from 'react'
+import { useState } from 'react';
+
+export default function SignIn() {
+  const [email, setEmail] = useState("")
+  const [password, setPassWord] = useState("")
+
+  const [msgEmail, setEmailMsg] = useState("")
+  const [msgPw, setPwMsg] = useState("")
+
+  const [isEmail, setIsEmail] = useState(false)
+  const [isPw, setIsPw] = useState(false)
+  const onEmailHandler = (e) => {
+    const currentEmail = e.currentTarget.value;
+    setEmail(currentEmail);
+    const emailRegExp = /^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+.[A-Za-z]{2,6}$/;
+    if (!emailRegExp.test(currentEmail)){
+        setEmailMsg("이메일 형식에 맞게 입력해주세요 ex) hello@example.com")
+        setIsEmail(false);
+    }else{
+        setEmailMsg("사용 가능한 이메일입니다.");
+        setIsEmail(true)
+    }
+  }
+  const onPwHandler = (e) => {
+
+  }
+  return (
+    <div className=''>
+        <form>
+            <label>(이메일) </label>
+            <input 
+             data-testid="email-input"
+             type="email"
+             onChange={onEmailHandler}
+             placeholder='이메일을 입력하세요' />
+
+             <label>(비밀번호)</label>
+            <input
+             data-testid="password-input"
+             type ="password"
+             onChange={onPwHandler}
+             placeholder='비밀번호를 입력하세요'/>
+
+            <button data-testid="signup-button">회원가입</button>
+        </form>
+    </div>
+  )
+}
