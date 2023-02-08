@@ -1,40 +1,19 @@
-import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
 
 export default function SignIn() {
 
 
-  const [loginEmail, setLoginEmail] = useState('');
-  const [loginPw, setLoginPw] = useState('');
+  const [email, setEmail] = useState('');
+  const [pw, setPw] = useState('');
 
-  const navigate = useNavigate();
+
 
   const onhandleLoginEmail = (e) =>{
-    setLoginEmail(e.target.value)
-  }
-  const onhandleLoginPw = (e) =>{
-    setLoginPw(e.target.value)
-  }
     
-  const onLoginButton = () =>{
-    const data = JSON.stringify({
-      "email" : loginEmail,
-      "password" : loginPw
-    })
-
-    axios.post("https://pre-onboarding-selection-task.shop/auth/signin",data,{
-      headers : {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-    console.log("success")
-    console.log(response)
-    window.localStorage.setItem("Login", response.data.access_token)
-    navigate('/todo')
-  }).catch((error) => console.log(error))
-
   }
+  const onhandleLoginPw = (e) =>{}
+
+  const onLoginButton = () =>{}
   return (
     <div className="page">
       
@@ -52,7 +31,7 @@ export default function SignIn() {
           className="input"
           type="text"
           placeholder="이메일을 입력하세요. ex)test@gmail.com "
-          value={loginEmail}
+          value={email}
           onChange={onhandleLoginEmail}
         />
       </div>
@@ -65,8 +44,8 @@ export default function SignIn() {
         <input
           className="input"
           type="password"
-          placeholder="비밀번호를 입력하세요."
-          value={loginPw}
+          placeholder="비밀번호를 입력하세요"
+          value={pw}
           onChange={onhandleLoginPw}
         />
       </div>

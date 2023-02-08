@@ -1,6 +1,5 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
 
 export default function SignIn() {
 
@@ -8,7 +7,7 @@ export default function SignIn() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPw, setLoginPw] = useState('');
 
-  const navigate = useNavigate();
+
 
   const onhandleLoginEmail = (e) =>{
     setLoginEmail(e.target.value)
@@ -27,12 +26,11 @@ export default function SignIn() {
       headers : {
         'Content-Type': 'application/json'
       }
-    }).then((response) => {
+    }).then((response) => 
     console.log("success")
     console.log(response)
-    window.localStorage.setItem("Login", response.data.access_token)
-    navigate('/todo')
-  }).catch((error) => console.log(error))
+    
+    )
 
   }
   return (

@@ -1,6 +1,4 @@
-import axios from 'axios';
 import React, { useState } from 'react'
-import { useNavigate } from 'react-router';
 
 export default function SignIn() {
 
@@ -8,7 +6,7 @@ export default function SignIn() {
   const [loginEmail, setLoginEmail] = useState('');
   const [loginPw, setLoginPw] = useState('');
 
-  const navigate = useNavigate();
+
 
   const onhandleLoginEmail = (e) =>{
     setLoginEmail(e.target.value)
@@ -17,24 +15,7 @@ export default function SignIn() {
     setLoginPw(e.target.value)
   }
     
-  const onLoginButton = () =>{
-    const data = JSON.stringify({
-      "email" : loginEmail,
-      "password" : loginPw
-    })
-
-    axios.post("https://pre-onboarding-selection-task.shop/auth/signin",data,{
-      headers : {
-        'Content-Type': 'application/json'
-      }
-    }).then((response) => {
-    console.log("success")
-    console.log(response)
-    window.localStorage.setItem("Login", response.data.access_token)
-    navigate('/todo')
-  }).catch((error) => console.log(error))
-
-  }
+  const onLoginButton = () =>{}
   return (
     <div className="page">
       

@@ -30,7 +30,7 @@ export default function SignIn() {
     }).then((response) => {
     console.log("success")
     console.log(response)
-    window.localStorage.setItem("Login", response.data.access_token)
+    window.localStorage.setItem("Login", response.headers.get("access_token"))
     navigate('/todo')
   }).catch((error) => console.log(error))
 
