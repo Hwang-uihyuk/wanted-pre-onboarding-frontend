@@ -12,7 +12,11 @@ export default function Todo() {
   },[])
 
 
-  const [todos , setTodos] = useState([])
+  const [todos , setTodos] = useState([
+    {todo: 'todo1', userId:'1', id:"1", isCompleted:false},
+    {todo: 'todo2', userId:'1', id:"2", isCompleted:false}
+]
+      )
 
   const [text,setText] = useState("")
 
@@ -33,37 +37,9 @@ export default function Todo() {
       }).then((response)=>{
           console.log("success")
           console.log(response.data)
-        
-
-
-        //assignment6
-    //     axios.get("https://pre-onboarding-selection-task.shop/todos",{
-    //       headers :{
-    //         "Content-Type": "application/json",
-    //         "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-    //       }
-    //   }).then((response) => {
-    //       console.log("데이터를 불러왔습니다.")
-        //   console.log(response.data)
-          setTodos([...todos, response.data])
-    //   })
-      //
+        //   setTodos([...todos, response.data])
         })
   }
-
-  //처음에 불러오기 ㅇㅇ
-  useEffect(() => {
-    axios.get("https://pre-onboarding-selection-task.shop/todos",{
-        headers :{
-          "Content-Type": "application/json",
-          "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-        }
-    }).then((response) => {
-        console.log("데이터를 불러왔습니다.")
-        console.log(response.data)
-        setTodos(response.data)
-    })
-  },[])
 
   const handleAdd = (todo) => {
     //새로운 투두를 todos에 업데이트 해야함.

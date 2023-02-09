@@ -25,46 +25,32 @@ export default function Todo() {
       const data = JSON.stringify({
           "todo" : text
       })
-      axios.post("https://pre-onboarding-selection-task.shop/todos",data,{
-          headers : {
-            "Content-Type": "application/json",
-            "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-          }
-      }).then((response)=>{
-          console.log("success")
-          console.log(response.data)
-        
-
-
-        //assignment6
-    //     axios.get("https://pre-onboarding-selection-task.shop/todos",{
-    //       headers :{
-    //         "Content-Type": "application/json",
-    //         "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-    //       }
-    //   }).then((response) => {
-    //       console.log("데이터를 불러왔습니다.")
-        //   console.log(response.data)
-          setTodos([...todos, response.data])
-    //   })
-      //
-        })
-  }
-
-  //처음에 불러오기 ㅇㅇ
-  useEffect(() => {
-    axios.get("https://pre-onboarding-selection-task.shop/todos",{
-        headers :{
+      useEffect(()=>{axios.post("https://pre-onboarding-selection-task.shop/todos",data,{
+        headers : {
           "Content-Type": "application/json",
           "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
         }
-    }).then((response) => {
-        console.log("데이터를 불러왔습니다.")
+    }).then((response)=>{
+        console.log("success")
         console.log(response.data)
-        setTodos(response.data)
-    })
-  },[])
+      //   setTodos([...todos, response.data])
+      })
+    },[])
+      
+  }
 
+  useEffect(() =>{
+      axios.get("https://pre-onboarding-selection-task.shop/todos",{
+          headers :{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+          }
+      }).then((response) => {
+          console.log("데이터를 불러왔습니다.")
+          console.log(response.data)
+          setTodos(response.data)
+      })
+  },[onCreateTodoHandler])
   const handleAdd = (todo) => {
     //새로운 투두를 todos에 업데이트 해야함.
 }
