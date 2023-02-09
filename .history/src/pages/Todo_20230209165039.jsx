@@ -93,14 +93,9 @@ export default function Todo() {
                 <input type="checkbox"/>
                 <span className='text-xl m-1'>{item.todo}</span>
 
-                
+                <button className='border border-black m-0.5 font-bold bg-slate-100' > 수정</button>
+                <button className='border border-black font-bold bg-slate-100' > 삭제 </button>
             </label>
-            <button
-                 className='border border-black m-0.5 font-bold bg-slate-100'
-                 data-testid="modify-button">수정</button>
-            <button 
-                className='border border-black font-bold bg-slate-100'
-                data-testid="delete-button" >삭제 </button>
         </li>
     ))}
 
