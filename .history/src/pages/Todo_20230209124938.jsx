@@ -1,7 +1,6 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate, useRevalidator } from 'react-router';
-import AddTodo from '../components/AddTodo';
+import { Navigate, useNavigate } from 'react-router';
 
 export default function Todo() {
   //assignment4   
@@ -11,23 +10,14 @@ export default function Todo() {
         navigate('/signin')
   },[])
 
-
-  const [todos , setTodos] = useState([
-    {todo: 'todo1', userId:'1', id:"1", isCompleted:false},
-    {todo: 'todo2', userId:'1', id:"2", isCompleted:false}
-]
-      )
-
-  const [text,setText] = useState("")
-
-
+  const [todo,setTodo] = useState("")
   const onToDoHandler = (e) =>{
-        setText(e.target.value)
+        setTodo(e.target.value)
   }
 
   const onCreateTodoHandler = (e) =>{
       const data = JSON.stringify({
-          "todo" : text
+          "todo" : todo
       })
       axios.post("https://pre-onboarding-selection-task.shop/todos",data,{
           headers : {
@@ -37,14 +27,9 @@ export default function Todo() {
       }).then((response)=>{
           console.log("success")
           console.log(response.data)
-          setTodos([...todos, response.data])
+          {<li> response.data.todo</li>}
         })
   }
-
-  const handleAdd = (todo) => {
-    //새로운 투두를 todos에 업데이트 해야함.
-}
-
   return (
     <div>
 
@@ -52,27 +37,28 @@ export default function Todo() {
         className ="border-4 rounded"
         data-testid="new-todo-input"
         placeholder='목록을 추가하세요'
-        value={text}
+        value={todo}
         onChange={onToDoHandler}
         />
     <button 
     data-testid="new-todo-add-button"
     onClick={onCreateTodoHandler}>추가</button>
 
-   
+
+    <li>
+        <label>
+            <input type="checkbox" />
+            <span>TODO 1</span>
+            
+        </label>
+    </li>
     
-
-
-    {todos.map((item) => (
-        <li key ={item.id}>
-            <label>
-                <input type="checkbox" checked={item.isCompleted} />
-                <span>{item.todo}</span>
-            </label>
-        </li>
-    ))}
-
-    {/* <AddTodo onAdd={handleAdd}/> */}
+    <li>
+        <label>
+            <input type="checkbox" />
+            <span>TODO 2</span>
+        </label>
+    </li>
                 
         </div>
   )

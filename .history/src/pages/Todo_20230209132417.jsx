@@ -37,7 +37,7 @@ export default function Todo() {
       }).then((response)=>{
           console.log("success")
           console.log(response.data)
-          setTodos([...todos, response.data])
+          
         })
   }
 
@@ -60,13 +60,26 @@ export default function Todo() {
     onClick={onCreateTodoHandler}>추가</button>
 
    
+    <li>
+        <label>
+            <input type="checkbox" />
+            <span>TODO 1</span>
+            
+        </label>
+    </li>
     
+    <li>
+        <label>
+            <input type="checkbox" />
+            <span>TODO 2</span>
+        </label>
+    </li>
 
 
     {todos.map((item) => (
         <li key ={item.id}>
             <label>
-                <input type="checkbox" checked={item.isCompleted} />
+                <input type="checkbox" value={item.!isCompleted} />
                 <span>{item.todo}</span>
             </label>
         </li>

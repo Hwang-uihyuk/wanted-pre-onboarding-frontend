@@ -66,7 +66,7 @@ export default function Todo() {
     {todos.map((item) => (
         <li key ={item.id}>
             <label>
-                <input type="checkbox" checked={item.isCompleted} />
+                <input type="checkbox" checked={!item.isCompleted} />
                 <span>{item.todo}</span>
             </label>
         </li>
