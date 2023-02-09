@@ -52,7 +52,6 @@ export default function Todo() {
   }
 
   //처음에 불러오기 ㅇㅇ
-  
   useEffect(() => {
     axios.get("https://pre-onboarding-selection-task.shop/todos",{
         headers :{
@@ -65,7 +64,7 @@ export default function Todo() {
         setTodos(response.data)
     })
   },[])
-  
+
 
   //assignment9 삭제하기
   const handleDelete = (item) => {
@@ -74,9 +73,7 @@ export default function Todo() {
         headers :{
             "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
     }
-      }).then(
-          setTodos((todos) => todos.filter((todo) => todo.id!==item))
-      )
+      }).then((response)=> console.log(response.data))
     }
 
     

@@ -74,9 +74,7 @@ export default function Todo() {
         headers :{
             "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
     }
-      }).then(
-          setTodos((todos) => todos.filter((todo) => todo.id!==item))
-      )
+      }).then()
     }
 
     

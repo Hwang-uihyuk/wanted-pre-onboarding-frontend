@@ -52,7 +52,6 @@ export default function Todo() {
   }
 
   //처음에 불러오기 ㅇㅇ
-  
   useEffect(() => {
     axios.get("https://pre-onboarding-selection-task.shop/todos",{
         headers :{
@@ -65,18 +64,14 @@ export default function Todo() {
         setTodos(response.data)
     })
   },[])
-  
+
 
   //assignment9 삭제하기
   const handleDelete = (item) => {
-    console.log(item)
-      axios.delete(`https://pre-onboarding-selection-task.shop/todos/${item}`,{
-        headers :{
-            "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-    }
-      }).then(
-          setTodos((todos) => todos.filter((todo) => todo.id!==item))
-      )
+    
+      axios.delete(`https://pre-onboarding-selection-task.shop/todos/${item.id}`,{
+        "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+      }).then("delete success")
     }
 
     

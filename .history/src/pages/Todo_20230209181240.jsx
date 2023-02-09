@@ -52,7 +52,6 @@ export default function Todo() {
   }
 
   //처음에 불러오기 ㅇㅇ
-  
   useEffect(() => {
     axios.get("https://pre-onboarding-selection-task.shop/todos",{
         headers :{
@@ -65,21 +64,14 @@ export default function Todo() {
         setTodos(response.data)
     })
   },[])
-  
+
 
   //assignment9 삭제하기
-  const handleDelete = (item) => {
-    console.log(item)
-      axios.delete(`https://pre-onboarding-selection-task.shop/todos/${item}`,{
-        headers :{
-            "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+  const handleDelete = () => {
+      axios.delete(`https://pre-onboarding-selection-task.shop/todos/${id}`,{
+        "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+      }).then("delete success")
     }
-      }).then(
-          setTodos((todos) => todos.filter((todo) => todo.id!==item))
-      )
-    }
-
-    
 
   return (
     <div>
@@ -113,7 +105,7 @@ export default function Todo() {
             <button 
                 className='border border-black font-bold bg-slate-100'
                 data-testid="delete-button"
-                onClick={() =>handleDelete(item.id)} >삭제 </button>
+                onClick={handleDelete} >삭제 </button>
         </li>
     ))}
 

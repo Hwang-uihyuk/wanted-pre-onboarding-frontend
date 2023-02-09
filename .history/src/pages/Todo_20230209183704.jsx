@@ -12,6 +12,7 @@ export default function Todo() {
   },[])
 
 
+  Firstcall();
   const [todos , setTodos] = useState([])
 
   const [text,setText] = useState("")
@@ -53,19 +54,6 @@ export default function Todo() {
 
   //처음에 불러오기 ㅇㅇ
   
-  useEffect(() => {
-    axios.get("https://pre-onboarding-selection-task.shop/todos",{
-        headers :{
-          "Content-Type": "application/json",
-          "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-        }
-    }).then((response) => {
-        console.log("데이터를 불러왔습니다.")
-        console.log(response.data)
-        setTodos(response.data)
-    })
-  },[])
-  
 
   //assignment9 삭제하기
   const handleDelete = (item) => {
@@ -74,9 +62,7 @@ export default function Todo() {
         headers :{
             "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
     }
-      }).then(
-          setTodos((todos) => todos.filter((todo) => todo.id!==item))
-      )
+      }).then()
     }
 
     
@@ -122,3 +108,19 @@ export default function Todo() {
         </div>
   )
 }
+
+
+export default function Firstcall(){
+    useEffect(() => {
+      axios.get("https://pre-onboarding-selection-task.shop/todos",{
+          headers :{
+            "Content-Type": "application/json",
+            "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+          }
+      }).then((response) => {
+          console.log("데이터를 불러왔습니다.")
+          console.log(response.data)
+          setTodos(response.data)
+      })
+    },[])
+    }
