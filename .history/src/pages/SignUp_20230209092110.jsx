@@ -78,7 +78,7 @@ export default function SignUp() {
   
   //assignment4 토큰 여부에 따른 
     useEffect(()=>{
-      window.localStorage.getItem("Login") &&
+      window.localStorage.getItem("Login")
       navigate('/todo')
     },[])
 

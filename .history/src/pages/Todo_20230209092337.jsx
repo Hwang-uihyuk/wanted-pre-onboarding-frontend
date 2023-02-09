@@ -2,10 +2,9 @@ import React, { useEffect } from 'react'
 import { Navigate, useNavigate } from 'react-router';
 
 export default function Todo() {
-  //assignment4   
   const navigate = useNavigate();
   useEffect(()=>{
-    !window.localStorage.getItem('Login') &&
+    !window.localStorage.getItem &&
         navigate('/signin')
   },[])
 

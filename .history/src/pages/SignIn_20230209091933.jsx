@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { useNavigate } from 'react-router';
 
 export default function SignIn() {
@@ -36,12 +36,8 @@ export default function SignIn() {
   }
 
   //assignment4 토큰여부에 따른 리다이렉트
-  useEffect(()=>{
-    window.localStorage.getItem("Login") &&
-    navigate('/todo')
-  },[])
-  
-     
+  window.localStorage.getItem("Login") &&
+     navigate('/todo')
 
   return (
     <div className="page">
