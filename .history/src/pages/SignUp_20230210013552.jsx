@@ -39,7 +39,7 @@ export default function SignUp() {
   const handlePw = (e) => {
     setPw(e.target.value);
     const regex =
-      /.{8,}$/;
+      /.{8,20}$/;
     if (regex.test(e.target.value)) {
       setPwValid(true);
     } else {
@@ -124,7 +124,7 @@ export default function SignUp() {
       </div>
       <div className="errorMessageWrap">
         {!pwValid && pw.length > 0 && (
-          <div> 8자 이상 입력해주세요.</div>
+          <div>영문, 숫자, 특수문자 포함 8자 이상 입력해주세요.</div>
         )}
       </div>
     </div>

@@ -63,7 +63,6 @@ export default function Todo() {
         console.log("데이터를 불러왔습니다.")
         console.log(response.data)
         setTodos(response.data)
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
     })
   },[])
   
@@ -84,41 +83,28 @@ export default function Todo() {
     const [editmode , setEditMode] =useState(false)
 
     const handleUpdate = (item) => {
-        
-        console.log(changeText)
-        const data = JSON.stringify({
-            "todo" : changeText,
-            "isCompleted" :item.isCompleted
-        })
-        axios.put(`https://pre-onboarding-selection-task.shop/todos/${item.id}`,data,{
-            headers :{
-                "Content-Type": "application/json",
-                "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-        }}).then(response => {
-
-            console.log(response.data)
-            
-
-            setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-
-
-            setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-
-
-            setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
-        } 
-        )  
+        console.log(item)
+            setEditMode(todos.map((todo) =>
+            todo.id === item ? !editmode : editmode))
+        // const data = JSON.stringify({
+        //     "todo" :item.todo,
+        //     "isCompleted" :item.isCompleted
+        // })
+        // axios.put(`https://pre-onboarding-selection-task.shop/todos/${item.id}`,data,{
+        //     headers :{
+        //         "Content-Type": "application/json",
+        //         "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
+        // }
+        // }).then(console.log('update success'))
     }
+
 
     const updateBtn = (item) => {
         console.log(item)
         console.log('sdf',todos)
         // set함수로 배열 객체 변경하는 법!!
-        setTodos((todos) => todos.map((todo) => todo.id === item.id ? {...todo, isCompleted : !todo.isCompleted} : todo))
+        // setTodos((todos) => todos.map((todo) => todo.id === item.id ? {...todo, isCompleted : !todo.isCompleted} : todo))
     }
-
-
-    const [changeText , setChangeText] = useState('')
   return (
     <div>
         <div>
@@ -137,31 +123,43 @@ export default function Todo() {
 
 
     {todos.map((item) => (
+
+        // editmode ? 
+        // //editmode 켜진 후
+        // <li key={item.id}>
+        //     <label>
+        //         <input type="checkbox"/>
+        //         <input type="text"></input>
+        //     </label>
+
+        //     <button>제출</button>
+        //     <button>취소하기</button>
+        // </li>
+
+        // :
+        //editmode 켜지기 전
         <li key ={item.id}>
             <label>
                 <input type="checkbox"/>
-                {!item.isCompleted ? <span className='text-xl m-1'
-                      >{item.todo}</span> : <input type="text" onChange={(e) =>{
-                            setChangeText(e.target.value)
-                      }}></input>}
-                <input className='hidden'></input>
+                <span className='text-xl m-1'
+                      ref={inputRef}>{item.todo}</span> 
+                <input placeholder='asdf' disabled="true"></input>
                 
                 
             </label>
 
 
-           {!item.isCompleted ?  <button
+           <button
                  className='border border-black m-0.5 font-bold bg-slate-100'
                  data-testid="modify-button"
                  onClick={() =>updateBtn(item)}
-                 >수정</button> :<button onClick={()=>handleUpdate(item)}>제출</button>}
+                 >수정</button>
 
 
-            {!item.isCompleted ? <button 
+    <button 
                 className='border border-black font-bold bg-slate-100'
                 data-testid="delete-button"
-                onClick={() =>handleDelete(item.id)} >삭제 </button> 
-                :<button>취소</button>}
+                onClick={() =>handleDelete(item.id)} >삭제 </button>
         </li>
     ))}
 

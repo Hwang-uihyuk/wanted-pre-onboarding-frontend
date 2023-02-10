@@ -63,7 +63,6 @@ export default function Todo() {
         console.log("데이터를 불러왔습니다.")
         console.log(response.data)
         setTodos(response.data)
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
     })
   },[])
   
@@ -84,31 +83,21 @@ export default function Todo() {
     const [editmode , setEditMode] =useState(false)
 
     const handleUpdate = (item) => {
-        
-        console.log(changeText)
+        // console.log(item)
+        //     setEditMode(todos.map((todo) =>
+        //     todo.id === item ? !editmode : editmode))
         const data = JSON.stringify({
-            "todo" : changeText,
+            "todo" :item.todo,
             "isCompleted" :item.isCompleted
         })
         axios.put(`https://pre-onboarding-selection-task.shop/todos/${item.id}`,data,{
             headers :{
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
-        }}).then(response => {
-
-            console.log(response.data)
-            
-
-            setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-
-
-            setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-
-
-            setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
-        } 
-        )  
+        }
+        }).then(console.log('update success'))
     }
+
 
     const updateBtn = (item) => {
         console.log(item)
@@ -116,9 +105,6 @@ export default function Todo() {
         // set함수로 배열 객체 변경하는 법!!
         setTodos((todos) => todos.map((todo) => todo.id === item.id ? {...todo, isCompleted : !todo.isCompleted} : todo))
     }
-
-
-    const [changeText , setChangeText] = useState('')
   return (
     <div>
         <div>
@@ -141,9 +127,7 @@ export default function Todo() {
             <label>
                 <input type="checkbox"/>
                 {!item.isCompleted ? <span className='text-xl m-1'
-                      >{item.todo}</span> : <input type="text" onChange={(e) =>{
-                            setChangeText(e.target.value)
-                      }}></input>}
+                      >{item.todo}</span> : <input type="text"></input>}
                 <input className='hidden'></input>
                 
                 
@@ -154,7 +138,7 @@ export default function Todo() {
                  className='border border-black m-0.5 font-bold bg-slate-100'
                  data-testid="modify-button"
                  onClick={() =>updateBtn(item)}
-                 >수정</button> :<button onClick={()=>handleUpdate(item)}>제출</button>}
+                 >수정</button> :<button onClick={handleUpdate}>제출</button>}
 
 
             {!item.isCompleted ? <button 

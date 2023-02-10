@@ -63,7 +63,6 @@ export default function Todo() {
         console.log("데이터를 불러왔습니다.")
         console.log(response.data)
         setTodos(response.data)
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
     })
   },[])
   
@@ -97,18 +96,16 @@ export default function Todo() {
         }}).then(response => {
 
             console.log(response.data)
-            
-
-            setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-
-
             setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
 
-
             setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
-        } 
-        )  
+
+            console.log(todos)
+        }
+        )
+       
     }
+
 
     const updateBtn = (item) => {
         console.log(item)
