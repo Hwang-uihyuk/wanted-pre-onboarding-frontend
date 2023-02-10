@@ -66,6 +66,12 @@ export default function SignUp() {
     console.log(error)})
   }
 
+
+    // if(email === User.email && pw === User.pw) {
+    //   alert('회원가입에 성공했습니다.')
+    // } else {
+    //   alert("등록되지 않은 회원입니다.");
+    // }
   
   //assignment4 토큰 여부에 따른 
     useEffect(()=>{
@@ -84,9 +90,10 @@ export default function SignUp() {
 
     <div className="contentWrap">
       <div className="inputTitle">이메일 주소</div>
-      <div className="inputWrap">
+      <div
+        className="inputWrap"
+      >
         <input
-          data-testid="email-input"
           className="input"
           type="text"
           placeholder="test@gmail.com"
@@ -105,10 +112,9 @@ export default function SignUp() {
       </div>
       <div className="inputWrap">
         <input
-          data-testid="password-input"
           className="input"
           type="password"
-          placeholder="8자 이상 입력해주세요."
+          placeholder="영문, 숫자, 특수문자 포함 8자 이상"
           value={pw}
           onChange={handlePw}
         />
@@ -121,11 +127,7 @@ export default function SignUp() {
     </div>
 
     <div>
-      <button 
-        data-testid="signup-button"
-        onClick={onClickConfirmButton} 
-        disabled={notAllow} 
-        className="bottomButton">
+      <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">
         회원가입
       </button>
     </div>

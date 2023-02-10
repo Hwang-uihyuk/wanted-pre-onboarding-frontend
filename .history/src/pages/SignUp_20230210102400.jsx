@@ -121,11 +121,7 @@ export default function SignUp() {
     </div>
 
     <div>
-      <button 
-        data-testid="signup-button"
-        onClick={onClickConfirmButton} 
-        disabled={notAllow} 
-        className="bottomButton">
+      <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">
         회원가입
       </button>
     </div>

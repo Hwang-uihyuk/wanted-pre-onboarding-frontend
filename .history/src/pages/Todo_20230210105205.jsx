@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router';
-
+import AddTodo from '../components/AddTodo';
 
 export default function Todo() {
   //assignment4   
@@ -67,6 +67,8 @@ export default function Todo() {
     const [editmode , setEditMode] =useState(false)
 
     const handleUpdate = (item) => {
+        
+        console.log(changeText)
         const data = JSON.stringify({
             "todo" : changeText,
             "isCompleted" :item.isCompleted
@@ -76,27 +78,29 @@ export default function Todo() {
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
         }}).then(response => {
+
+            console.log(response.data)
+            
+
             setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
+
             setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
+
             setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
         } 
         )  
     }
 
     const updateBtn = (item) => {
+        console.log(item)
         // set함수로 배열 객체 변경하는 법!!
         setTodos((todos) => todos.map((todo) => todo.id === item.id ? {...todo, isCompleted : !todo.isCompleted} : todo))
     }
 
 
     const [changeText , setChangeText] = useState('')
-
-
-    const handleCancle = (item) => {
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
-    }
   return (
-    <div className='m-3'>
+    <div className='m-3 p-3'>
     <input 
         data-testid="new-todo-input"
         className ="border-4 rounded"
@@ -108,7 +112,7 @@ export default function Todo() {
     data-testid="new-todo-add-button"
     onClick={onCreateTodoHandler}>추가</button>
 
-<div className='m-3'>
+
     {todos.map((item) => (
         <li key ={item.id}>
             <label>
@@ -117,10 +121,7 @@ export default function Todo() {
                 <span className='text-xl m-1'>{item.todo}</span> 
                       : 
                 <input 
-                    data-testid="modify-input"
                     type="text" 
-                    className='focus'
-                    placeholder='수정할 내용을 입력하세요.'
                     onChange={(e) =>{
                         setChangeText(e.target.value)}}></input>}
 
@@ -151,7 +152,6 @@ export default function Todo() {
                  </button> 
                 :
                 <button
-                onClick={() => handleCancle(item)}
                 data-testid="cancel-button">취소
                 </button>}
         </li>
@@ -160,6 +160,5 @@ export default function Todo() {
     {/* <AddTodo onAdd={handleAdd}/> */}
                 
         </div>
-    </div>
   )
 }

@@ -10,12 +10,12 @@ export default function SignIn() {
 
   const navigate = useNavigate();
 
-  // const onhandleLoginEmail = (e) =>{
-  //   setLoginEmail(e.target.value)
-  // }
-  // const onhandleLoginPw = (e) =>{
-  //   setLoginPw(e.target.value)
-  // }
+  const onhandleLoginEmail = (e) =>{
+    setLoginEmail(e.target.value)
+  }
+  const onhandleLoginPw = (e) =>{
+    setLoginPw(e.target.value)
+  }
     
   const onLoginButton = () =>{
     const data = JSON.stringify({
@@ -42,6 +42,9 @@ export default function SignIn() {
   },[])
   
      
+
+
+
 //유효성검사
 
 const [emailValid, setEmailValid] = useState(false);
@@ -58,7 +61,7 @@ useEffect(() => {
 }, [emailValid, pwValid]);
 
 
-  const onhandleLoginEmail = (e) => {
+  const handleEmail = (e) => {
     setLoginEmail(e.target.value);
     const regex =
       /^(([^<>()\[\].,;:\s@"]+(\.[^<>()\[\].,;:\s@"]+)*)|(".+"))@(([^<>()[\].,;:\s@"]+\.)+[^<>()[\].,;:\s@"]{2,})$/i;
@@ -68,7 +71,7 @@ useEffect(() => {
       setEmailValid(false);
     }
   };
-  const onhandleLoginPw = (e) => {
+  const handlePw = (e) => {
     setLoginPw(e.target.value);
     const regex =
       /.{8,}$/;
@@ -128,7 +131,7 @@ useEffect(() => {
 
     <div>
       {/* 로그인 버튼 */}
-      <button onClick={onLoginButton} className="bottomButton" disabled={notAllow}>로그인</button>
+      <button onClick={onLoginButton} className="bottomButton">로그인</button>
       {/* 회원가입 버튼 */}
       <button 
       onClick={() => navigate('/signup')} 

@@ -1,7 +1,7 @@
 import axios from 'axios';
-import React, { useEffect, useState } from 'react'
-import { Navigate, useNavigate } from 'react-router';
-
+import React, { useEffect, useRef, useState } from 'react'
+import { Navigate, useNavigate, useRevalidator } from 'react-router';
+import AddTodo from '../components/AddTodo';
 
 export default function Todo() {
   //assignment4   
@@ -13,6 +13,9 @@ export default function Todo() {
 
   const [todos , setTodos] = useState([])
   const [text,setText] = useState("")
+
+  //assignment 
+  const inputRef = useRef(null)
   
   const onToDoHandler = (e) =>{
         setText(e.target.value)
@@ -35,7 +38,8 @@ export default function Todo() {
         })
   }
 
-  //처음 불러오기
+  //처음에 불러오기 ㅇㅇ
+  
   useEffect(() => {
     axios.get("https://pre-onboarding-selection-task.shop/todos",{
         headers :{
@@ -63,10 +67,12 @@ export default function Todo() {
       )
     }
 
-    //assignment10
+    //assignment10 수정하기
     const [editmode , setEditMode] =useState(false)
 
     const handleUpdate = (item) => {
+        
+        console.log(changeText)
         const data = JSON.stringify({
             "todo" : changeText,
             "isCompleted" :item.isCompleted
@@ -76,30 +82,37 @@ export default function Todo() {
                 "Content-Type": "application/json",
                 "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
         }}).then(response => {
+
+            console.log(response.data)
+            
+
             setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
+
+
             setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
+
+
             setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
         } 
         )  
     }
 
     const updateBtn = (item) => {
+        console.log(item)
         // set함수로 배열 객체 변경하는 법!!
         setTodos((todos) => todos.map((todo) => todo.id === item.id ? {...todo, isCompleted : !todo.isCompleted} : todo))
     }
 
 
     const [changeText , setChangeText] = useState('')
-
-
-    const handleCancle = (item) => {
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
-    }
   return (
-    <div className='m-3'>
+    <div>
+        <div>
+            <div aria-disabled>sdf</div>
+        </div>
     <input 
-        data-testid="new-todo-input"
         className ="border-4 rounded"
+        data-testid="new-todo-input"
         placeholder='목록을 추가하세요'
         value={text}
         onChange={onToDoHandler}
@@ -108,58 +121,38 @@ export default function Todo() {
     data-testid="new-todo-add-button"
     onClick={onCreateTodoHandler}>추가</button>
 
-<div className='m-3'>
+
     {todos.map((item) => (
         <li key ={item.id}>
             <label>
                 <input type="checkbox"/>
-                {!item.isCompleted ? 
-                <span className='text-xl m-1'>{item.todo}</span> 
-                      : 
-                <input 
-                    data-testid="modify-input"
-                    type="text" 
-                    className='focus'
-                    placeholder='수정할 내용을 입력하세요.'
-                    onChange={(e) =>{
-                        setChangeText(e.target.value)}}></input>}
-
+                {!item.isCompleted ? <span className='text-xl m-1'
+                      >{item.todo}</span> : <input type="text" onChange={(e) =>{
+                            setChangeText(e.target.value)
+                      }}></input>}
                 <input className='hidden'></input>
                 
                 
             </label>
 
 
-           {!item.isCompleted ?  
-           <button
+           {!item.isCompleted ?  <button
                  className='border border-black m-0.5 font-bold bg-slate-100'
                  data-testid="modify-button"
                  onClick={() =>updateBtn(item)}
-                 >수정
-                 </button> 
-                 :
-                 <button 
-                 data-testid ="submit-button" onClick={()=>handleUpdate(item)}>제출
-                 </button>}
+                 >수정</button> :<button onClick={()=>handleUpdate(item)}>제출</button>}
 
 
-            {!item.isCompleted ? 
-            <button 
+            {!item.isCompleted ? <button 
                 className='border border-black font-bold bg-slate-100'
                 data-testid="delete-button"
-                onClick={() =>handleDelete(item.id)} >삭제
-                 </button> 
-                :
-                <button
-                onClick={() => handleCancle(item)}
-                data-testid="cancel-button">취소
-                </button>}
+                onClick={() =>handleDelete(item.id)} >삭제 </button> 
+                :<button>취소</button>}
         </li>
     ))}
 
     {/* <AddTodo onAdd={handleAdd}/> */}
                 
         </div>
-    </div>
   )
 }

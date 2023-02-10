@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router';
-
+import AddTodo from '../components/AddTodo';
 
 export default function Todo() {
   //assignment4   
@@ -77,7 +77,7 @@ export default function Todo() {
                 "Authorization" : `Bearer ${window.localStorage.getItem("Login")}`
         }}).then(response => {
             setTodos((todos) => todos.filter((todo) => todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
-            setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
+            // setTodos((todos) => todos.map((todo)=>todo.id === item.id ? {...todo, todo :response.data.todo} : todo))
             setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
         } 
         )  

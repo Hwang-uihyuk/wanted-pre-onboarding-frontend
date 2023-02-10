@@ -84,9 +84,10 @@ export default function SignUp() {
 
     <div className="contentWrap">
       <div className="inputTitle">이메일 주소</div>
-      <div className="inputWrap">
+      <div
+        className="inputWrap"
+      >
         <input
-          data-testid="email-input"
           className="input"
           type="text"
           placeholder="test@gmail.com"
@@ -105,7 +106,6 @@ export default function SignUp() {
       </div>
       <div className="inputWrap">
         <input
-          data-testid="password-input"
           className="input"
           type="password"
           placeholder="8자 이상 입력해주세요."
@@ -121,11 +121,7 @@ export default function SignUp() {
     </div>
 
     <div>
-      <button 
-        data-testid="signup-button"
-        onClick={onClickConfirmButton} 
-        disabled={notAllow} 
-        className="bottomButton">
+      <button onClick={onClickConfirmButton} disabled={notAllow} className="bottomButton">
         회원가입
       </button>
     </div>

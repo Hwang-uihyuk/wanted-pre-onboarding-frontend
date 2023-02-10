@@ -1,7 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import { Navigate, useNavigate } from 'react-router';
-
+import AddTodo from '../components/AddTodo';
 
 export default function Todo() {
   //assignment4   
@@ -93,7 +93,7 @@ export default function Todo() {
 
 
     const handleCancle = (item) => {
-        setTodos((todos) => todos.map((todo)=> todo.isCompleted === true ? {...todo, isCompleted : false} : todo))
+        setTodos(todos)
     }
   return (
     <div className='m-3'>
