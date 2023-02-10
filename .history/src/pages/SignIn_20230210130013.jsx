@@ -23,14 +23,14 @@ export default function SignIn() {
     }).then((response) => {
     console.log("success")
     console.log(response)
-    window.localStorage.setItem("signin", response.data.access_token)
+    window.localStorage.setItem("Login", response.data.access_token)
     navigate('/todo')
   }).catch((error) => console.log(error))
   }
 
   //assignment4 토큰여부에 따른 리다이렉트
   useEffect(()=>{
-    window.localStorage.getItem("signin") &&
+    window.localStorage.getItem("Login") &&
     navigate('/todo')
   },[])
   
